@@ -1,5 +1,5 @@
 #include "mytcpserver.h"
-#include <QDebug>
+#include "functioforserver.h"
 #include <QCoreApplication>
 MyTcpServer::~MyTcpServer()
 {
@@ -43,11 +43,13 @@ void MyTcpServer::slotNewConnection(){
 void MyTcpServer::slotServerRead(){
     QTcpSocket* socket = (QTcpSocket*)sender();
     int desc = socket->socketDescriptor();
+    QString res = "";
     while(mTcpSocket[desc]->bytesAvailable()>0)
     {
         QByteArray array =socket->readAll();
-        socket->write(array);
+        res.append(array);
     }
+    socket->write(parsing(res.toUtf8()));
 }
 
 void MyTcpServer::slotClientDisconnected(){
