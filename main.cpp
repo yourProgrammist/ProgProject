@@ -1,11 +1,8 @@
 #include <QCoreApplication>
-#include "mytcpserver.h"
-
+#include <singletonclient.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-
-    MyTcpServer server;
-
+    SingletonClient::getInstance()->sendToServer("auth&pass&login");
     return a.exec();
 }
