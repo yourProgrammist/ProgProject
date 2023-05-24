@@ -55,87 +55,70 @@ public:
     }
 
 
-    static QString count_stat(int sock_desc)
+    QByteArray count_stat(QString log)
+    {
+        QByteArray result;
+        QSqlQuery query(db);
+        query.prepare("SELECT stat FROM user WHERE log = :log");
+        query.bindValue(":log", log);
+        query.exec();
+        query.first();
+        QString value = query.value(0).toString();
+        qDebug() << value;
+        return "stat" + value.toUtf8();
+    }
+
+    QByteArray count_stat1(QString log)
     {
 
         QByteArray result;
         QSqlQuery query(db);
-        query.prepare("SELECT stat FROM user WHERE status=:sock_desc");
-        query.bindValue(":sock_desc", sock_desc);
+        query.prepare("SELECT stat1 FROM user WHERE log = :log");
+        query.bindValue(":log", log);
         query.exec();
-        QSqlRecord rec = query.record();
-        const int statIndex = rec.indexOf("stat");
-        while(query.next()) result.append(query.value(statIndex).toInt());
-
-        query.clear();
-        qDebug()<<result;
-        return "stat" + result;
+        query.first();
+        QString value = query.value(0).toString();
+        qDebug() << value;
+        return "stat" + value.toUtf8();
     }
 
-    QString count_stat1(int sock_desc)
+     QByteArray count_stat2(QString log)
     {
-
-        QByteArray result;
-        QSqlQuery query;
-        query.prepare("SELECT stat1 FROM user WHERE status=:sock_desc");
-        query.bindValue(":sock_desc", sock_desc);
-        query.exec();
-        QSqlRecord rec = query.record();
-        const int statIndex = rec.indexOf("stat1");
-        while(query.next()) result.append(query.value(statIndex).toInt());
-
-        query.clear();
-        qDebug()<<result;
-        return result;
+         QByteArray result;
+         QSqlQuery query(db);
+         query.prepare("SELECT stat2 FROM user WHERE log = :log");
+         query.bindValue(":log", log);
+         query.exec();
+         query.first();
+         QString value = query.value(0).toString();
+         qDebug() << value;
+         return "stat" + value.toUtf8();
     }
 
-     QString count_stat2(int sock_desc)
+     QByteArray count_stat3(QString log)
     {
-
-        QByteArray result;
-        QSqlQuery query;
-        query.prepare("SELECT stat2 FROM user WHERE status=:sock_desc");
-        query.bindValue(":sock_desc", sock_desc);
-        query.exec();
-        QSqlRecord rec = query.record();
-        const int statIndex = rec.indexOf("stat2");
-        while(query.next()) result.append(query.value(statIndex).toInt());
-        query.clear();
-        qDebug()<<result;
-        return result;
+         QByteArray result;
+         QSqlQuery query(db);
+         query.prepare("SELECT stat3 FROM user WHERE log = :log");
+         query.bindValue(":log", log);
+         query.exec();
+         query.first();
+         QString value = query.value(0).toString();
+         qDebug() << value;
+         return "stat" + value.toUtf8();
     }
 
-     QString count_stat3(int sock_desc)
-    {
+     QByteArray check_ans(QString numb, QString variant, QString ans, QString log) {
 
-        QByteArray result;
-
-        QSqlQuery query;
-        query.prepare("SELECT stat3 FROM user WHERE status=:sock_desc");
-        query.bindValue(":sock_desc", sock_desc);
-        query.exec();
-        QSqlRecord rec = query.record();
-        const int statIndex = rec.indexOf("stat3");
-        while(query.next()) result.append(query.value(statIndex).toInt());
-
-        query.clear();
-        qDebug()<<result;
-        return result;
-    }
-
-     QByteArray check_ans(QString numb, QString ans, int sock_desc) {
-
-        if (ans=="+")
+        if (ans=="1234")
         {
 
-
             QSqlQuery query;
-            if (numb=="1") query.prepare("UPDATE user SET stat1=stat1+1, stat=stat+1 WHERE status=:sock_desc;");
-            else if (numb=="2") query.prepare("UPDATE user SET stat2=stat2+1, stat=stat+1 WHERE status=:sock_desc");
-            else query.prepare("UPDATE user SET stat3=stat3+1, stat=stat+1 WHERE status=:sock_desc");
-            query.bindValue(":sock_desc", sock_desc);
+            if (numb=="1") query.prepare("UPDATE user SET stat1=stat1+1, stat=stat+1 WHERE log=:log;");
+            else if (numb=="2") query.prepare("UPDATE user SET stat2=stat2+1, stat=stat+1 WHERE log=:log;");
+            else query.prepare("UPDATE user SET stat3=stat3+1, stat=stat+1 WHERE log=:log;");
+            query.bindValue(":log", log);
             query.exec();
-
 
             query.clear();
             return "check_true";
@@ -145,10 +128,10 @@ public:
         {
             db.open();
             QSqlQuery query;
-            if (numb=='1') query.prepare("UPDATE user SET stat1=stat1-1, stat=stat-1 WHERE status=:sock_desc;");
-            else if (numb=='2') query.prepare("UPDATE user SET stat2=stat2-1, stat=stat-1 WHERE status=:sock_desc;");
-            else query.prepare("UPDATE user SET stat3=stat3-1, stat=stat-1 WHERE status=:sock_desc;");
-            query.bindValue(":sock_desc", sock_desc);
+            if (numb=='1') query.prepare("UPDATE user SET stat1=stat1-1, stat=stat-1 WHERE log=:log;");
+            else if (numb=='2') query.prepare("UPDATE user SET stat2=stat2-1, stat=stat-1 WHERE log=:log;");
+            else query.prepare("UPDATE user SET stat3=stat3-1, stat=stat-1 WHERE log=:log;");
+            query.bindValue(":log", log);
             query.exec();
             db.close();
             query.clear();
@@ -171,7 +154,7 @@ public:
             return "auth_false";
         }
     }
-    QByteArray reg(QString log, QString pass, QString mail, int sock_desc)
+    QByteArray reg(QString log, QString pass, QString mail)
     {
         QSqlQuery query;
         query.prepare("SELECT * FROM user where log = :login" );
@@ -214,7 +197,6 @@ public:
 
         query.clear();
         return "true";
-
     }
 };
 
