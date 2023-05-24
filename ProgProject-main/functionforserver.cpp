@@ -70,6 +70,7 @@ QByteArray parsing (QString data_from_client,int desc)
             variant = data_from_client_list.front();
             data_from_client_list.pop_front();
             text = data_from_client_list.front();
+            data_from_client_list.pop_front();
             log = data_from_client_list.front();
             return check_ans(task_number, variant, text, log);
         }

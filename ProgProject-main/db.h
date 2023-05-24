@@ -109,17 +109,15 @@ public:
     }
 
      QByteArray check_ans(QString numb, QString variant, QString ans, QString log) {
-
         if (ans=="1234")
         {
-
             QSqlQuery query;
-            if (numb=="1") query.prepare("UPDATE user SET stat1=stat1+1, stat=stat+1 WHERE log=:log;");
-            else if (numb=="2") query.prepare("UPDATE user SET stat2=stat2+1, stat=stat+1 WHERE log=:log;");
-            else query.prepare("UPDATE user SET stat3=stat3+1, stat=stat+1 WHERE log=:log;");
+            if (numb=="1") query.prepare("UPDATE user SET stat=1 WHERE log=:log");
+            else if (numb=="2") query.prepare("UPDATE user SET stat1=1 WHERE log=:log;");
+            else if (numb=="3") query.prepare("UPDATE user SET stat2=1 WHERE log=:log;");
+            else query.prepare("UPDATE user SET stat3=1 WHERE log=:log;");
             query.bindValue(":log", log);
             query.exec();
-
             query.clear();
             return "check_true";
 
