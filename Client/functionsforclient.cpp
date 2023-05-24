@@ -48,6 +48,7 @@ QString del_status(QString log)
 }
 QString check_ans(int task_number, QString variant, QString text, QString log){
     QString res = "check&" + QString::number(task_number)+"&"+ variant+"&"+text+"&"+log;
+    qDebug()<<res;
     return Client::getInstance()->send_to_server(res);
 }
 void update_stat(int n, QString upd)

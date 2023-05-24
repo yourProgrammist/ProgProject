@@ -85,9 +85,11 @@ void  AuthForm::check_auth()
 
             //reg
             QString email = ui -> mail_lineEdit -> text();
-                if ((email!="")&& (reg(log, pass, email)!="false"))
+                if (!((email=="") || (reg(log, pass, email)=="false")))
                 {
-                    reg(log, pass, email);
+                    //reg(log, pass, email);
+                    qDebug()<<"reg(log, pass, email)";
+
                 }
                 else if (email=="")
                 {

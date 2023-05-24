@@ -1,5 +1,5 @@
 #include "task1.h"
-#include "ui_mainwindow.h"
+
 #include "ui_task1.h"
 
 
@@ -15,17 +15,17 @@ task1::~task1()
     delete ui;
 }
 
-void task1::setTaskNumber(int n)
+void task1::setTaskNumber(int n, QString _log)
 {
     task_number = n;
     variant = generateVariant(n);
+    log = _log;
     ui->textBrowser->setText(generateTask(n)+"\n"+variant);
     show();
 }
 
 void task1::on_send_answer_but_clicked()
 {
-    QString log = "amir";
     QString text = ui->lineEdit_answer->text();
     check_ans(task_number, variant, text, log);
 

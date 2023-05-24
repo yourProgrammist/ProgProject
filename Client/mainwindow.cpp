@@ -52,22 +52,22 @@ void MainWindow::on_but_exit_clicked()
 
 void MainWindow::on_but_task1_clicked()
 {
-    ui_task1->setTaskNumber(1);
+    ui_task1->setTaskNumber(1, ui->name_label->text());
 }
 
 void MainWindow::on_but_task2_clicked()
 {
-    ui_task1->setTaskNumber(2);
+    ui_task1->setTaskNumber(2, ui->name_label->text());
 }
 
 void MainWindow::on_but_task3_clicked()
 {
-    ui_task1->setTaskNumber(3);
+    ui_task1->setTaskNumber(3, ui->name_label->text());
 }
 
 void MainWindow::on_but_task4_clicked()
 {
-    ui_task1->setTaskNumber(4);
+    ui_task1->setTaskNumber(4, ui->name_label->text());
 }
 void MainWindow::slot_show(QString log){
     this->show();
