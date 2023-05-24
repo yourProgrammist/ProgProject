@@ -11,6 +11,7 @@ QString look_stat1(QString log);
 QString look_stat2(QString log);
 QString look_stat3(QString log);
 QString del_status(QString log);
+QString check_ans(int, QString, QString, QString);
 
 
 #endif // FUNCTIONSFORCLIENT_H

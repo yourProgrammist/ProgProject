@@ -1,5 +1,6 @@
 #include "functionsforclient.h"
 #include "authform.h"
+#include "task1.h"
 #include <QWidget>
 
 QString auth(QString log, QString pass)
@@ -43,6 +44,10 @@ QString del_status(QString log)
 {
     QString res ="del&"+log;
     //qDebug()<<res;
+    return Client::getInstance()->send_to_server(res);
+}
+QString check_ans(int task_number, QString variant, QString text, QString log){
+    QString res = "check&" + QString::number(task_number)+"&"+ variant+"&"+text+"&"+log;
     return Client::getInstance()->send_to_server(res);
 }
 void update_stat(int n, QString upd)

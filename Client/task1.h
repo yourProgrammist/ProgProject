@@ -1,9 +1,10 @@
 #ifndef TASK1_H
 #define TASK1_H
 
-#include "functionsforclient.h"
+
 #include <QWidget>
 #include <qDebug>
+#include "functionsforclient.h"
 
 namespace Ui {
 class task1;

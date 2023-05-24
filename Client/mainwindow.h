@@ -6,6 +6,7 @@
 #include "client.h"
 #include "authform.h"
 #include "functionsforclient.h"
+#include <QMessageBox>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -42,6 +43,7 @@ private slots:
 
     void slot_show(QString log);
 
+    void on_stat_button_clicked();
 
 private:
     Ui::MainWindow *ui;

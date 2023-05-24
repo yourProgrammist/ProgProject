@@ -27,7 +27,7 @@ class Client : public QObject
         static Client * p_instance;
         static ClientDestroyer destroyer;
         QTcpSocket mysocket;
-
+        QString ans_from_serv;
     protected:
         Client(QObject *parent = nullptr) : QObject(parent){
             mysocket.connectToHost("127.0.0.1",33333);
@@ -57,7 +57,6 @@ signals:
         }
         QString send_to_server(QString res)
         {
-            QString ans_from_serv = "Read";
             QByteArray a;
             a+=res.toUtf8();
             mysocket.write(a);
@@ -84,15 +83,22 @@ signals:
 
         }
         qDebug()<<res;
-        if(res.left(4)=="auth")
+        if(res.left(4)=="auth"){
             emit auth_msg(res.mid(5,-1));
-        else if(res.left(3)=="reg")
+            ans_from_serv = res.mid(5,-1);
+        }
+        else if(res.left(3)=="reg"){
             emit reg_msg(res.mid(4,-1));
-        else if(res.left(4)=="stat")
+            ans_from_serv = res.mid(4,-1);
+        }
+        else if(res.left(4)=="stat"){
             emit stat_msg(res.mid(4,-1));
-        else if(res.left(5)=="check")
+            ans_from_serv = res.mid(4,-1);
+        }
+        else if(res.left(5)=="check"){
             emit check_msg(res.mid(6,-1));
-
+            ans_from_serv = res.mid(6,-1);
+        }
     };
 
 };

@@ -6,7 +6,6 @@
 #include <qDebug>
 #include "functionsforclient.h"
 #include "client.h"
-#include "functionsforclient.h"
 
 namespace Ui {
 class AuthForm;

@@ -70,14 +70,27 @@
       </spacer>
      </item>
      <item>
+      <widget class="QPushButton" name="stat_button">
+       <property name="text">
+        <string>Статистика</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <widget class="QLabel" name="stat_label">
-         <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;h2 style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:x-large; font-weight:700;&quot;&gt;Статистика&lt;/span&gt;&lt;/h2&gt;&lt;p&gt;Задание 1 - 5&lt;/p&gt;&lt;p&gt;Задание 2 - 4&lt;/p&gt;&lt;p&gt;Задание 3 - 0&lt;/p&gt;&lt;p&gt;Задание 4 - 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="but_exit">
          <property name="text">

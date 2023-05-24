@@ -75,3 +75,19 @@ void MainWindow::slot_show(QString log){
 }
 
 
+
+
+
+
+void MainWindow::on_stat_button_clicked()
+{
+   QString log = ui->name_label->text();
+   QString task1 = look_stat(log);
+   QString task2 = look_stat1(log);
+   QString task3 = look_stat2(log);
+   QString task4 = look_stat3(log);
+   QMessageBox temp;
+   temp.setText("Задача 1 - " + task1 +  "\n" + "Задача 2 - " + task2 + "\n" + "Задача 3 - " + task3 + "\n" + "Задача 4 -" + task4);
+   temp.exec();
+}
+

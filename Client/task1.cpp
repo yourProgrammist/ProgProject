@@ -1,4 +1,5 @@
 #include "task1.h"
+#include "ui_mainwindow.h"
 #include "ui_task1.h"
 
 
@@ -24,7 +25,10 @@ void task1::setTaskNumber(int n)
 
 void task1::on_send_answer_but_clicked()
 {
-    qDebug() << "chech&" + QString::number(task_number)+"&"+ variant+"&"+ui->lineEdit_answer->text();
+    QString log = "amir";
+    QString text = ui->lineEdit_answer->text();
+    check_ans(task_number, variant, text, log);
+
 }
 
 QString task1::generateTask(int n)
