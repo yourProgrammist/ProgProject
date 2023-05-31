@@ -3,9 +3,9 @@
 
 
 
-QByteArray reg(QString log, QString pass,QString mail)
+QByteArray reg(QString log, QString pass,QString mail, QString role)
 {
-    return Db::getInstance()->reg(log,pass,mail);
+    return Db::getInstance()->reg(log,pass,mail, role);
 }
 
 
@@ -14,8 +14,8 @@ QByteArray auth(QString log, QString pass,int desc)
     return Db::getInstance()->auth(log,pass,desc);
 }
 
-QByteArray check_ans(QString task_number,QString variant, QString ans, QString log){
-    return Db::getInstance()->check_ans(task_number, variant, ans, log);
+QByteArray check_ans(QString task_number,QString variant, QString text, QString log){
+    return Db::getInstance()->check_ans(task_number, variant, text, log);
 }
 
 QByteArray count_stat(QString log){
@@ -31,20 +31,29 @@ QByteArray count_stat3(QString log){
     return Db::getInstance()->count_stat3(log);
 }
 
+QByteArray check_role(QString log){
+    return Db::getInstance()->check_role(log);
+}
+
 void del(int desc)
 {
     Db::getInstance()->del_status(desc);
+}
+QByteArray select_student(){
+    qDebug()<<Db::getInstance()->select_student();
+    return Db::getInstance()->select_student();
 }
 
 QByteArray parsing (QString data_from_client,int desc)
 {
     if(data_from_client.contains('&'))
     {
-
-        QStringList data_from_client_list = data_from_client.split(QLatin1Char('&'));
+        qDebug()<<data_from_client;
+        QStringList data_from_client_list = data_from_client.trimmed().split(QLatin1Char('&'));
         qDebug() << data_from_client_list;
-        QString log, pass;
+        QString log, pass, mail;
         QString variant, text, task_number;
+        QString role;
 
         if(data_from_client_list.front() == "reg")
         {
@@ -52,7 +61,11 @@ QByteArray parsing (QString data_from_client,int desc)
             log = data_from_client_list.front();
             data_from_client_list.pop_front();
             pass = data_from_client_list.front();
-            return reg(log, pass,data_from_client_list[1]);
+            data_from_client_list.pop_front();
+            mail = data_from_client_list.front();
+            data_from_client_list.pop_front();
+            role = data_from_client_list.front();
+            return reg(log, pass,mail, role);
         }
         if(data_from_client_list.front() == "auth")
         {
@@ -60,7 +73,9 @@ QByteArray parsing (QString data_from_client,int desc)
             log = data_from_client_list.front();
             data_from_client_list.pop_front();
             pass = data_from_client_list.front();
+            qDebug()<<select_student();
             return auth(log, pass, desc);
+
         }
         if(data_from_client_list.front() == "check")
         {
@@ -72,7 +87,6 @@ QByteArray parsing (QString data_from_client,int desc)
             text = data_from_client_list.front();
             data_from_client_list.pop_front();
             log = data_from_client_list.front();
-            qDebug() << "Debug";
             return check_ans(task_number, variant, text, log);
         }
         if(data_from_client_list.front() == "stat")
@@ -103,8 +117,14 @@ QByteArray parsing (QString data_from_client,int desc)
             log = data_from_client_list.front();
             return count_stat3(log);
         }
+        if(data_from_client_list.front()== "role"){
+            data_from_client_list.pop_front();
+            log = data_from_client_list.front();
+            return check_role(log);
+        }
     } else
     {
         return data_from_client.toUtf8();;
     }
 }
+

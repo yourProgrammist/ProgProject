@@ -33,7 +33,7 @@ protected:
     Db()
     {
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("/home/kirillosin/Desktop/Проекты по технология программирования/ProgProject-Nurov-server-client/ProgProject-main/DataBase.db");
+        db.setDatabaseName("C:\\1111\\ProgProject-main\\ProgProject-main\\DataBase.db");
 
 
         if(!db.open())
@@ -109,30 +109,32 @@ public:
     }
 
      QByteArray check_ans(QString numb, QString variant, QString ans, QString log) {
-        if (numb == "2")
+        if (ans=="1234")
         {
-            if (ans=="true")
-            {
-                QSqlQuery query;
-                qDebug() << log;
-                query.prepare("UPDATE user SET stat1=1 WHERE log=:login;");
-                query.bindValue(":login", log);
-                query.exec();
-                query.clear();
-                qDebug() << "Good";
-                return "check_true";
-            }
-            else
-            {
-                QSqlQuery query;
-                query.prepare("UPDATE user SET stat1=-1 WHERE log=:log;");
-                query.bindValue(":log", log);
-                query.exec();
-                query.clear();
-                return "check_true";
-            }
-        }
+            QSqlQuery query;
+            if (numb=="1") query.prepare("UPDATE user SET stat=1 WHERE log=:log");
+            else if (numb=="2") query.prepare("UPDATE user SET stat1=1 WHERE log=:log;");
+            else if (numb=="3") query.prepare("UPDATE user SET stat2=1 WHERE log=:log;");
+            else query.prepare("UPDATE user SET stat3=1 WHERE log=:log;");
+            query.bindValue(":log", log);
+            query.exec();
+            query.clear();
+            return "check_true";
 
+        }
+        else
+        {
+            db.open();
+            QSqlQuery query;
+            if (numb=='1') query.prepare("UPDATE user SET stat1=stat1-1, stat=stat-1 WHERE log=:log;");
+            else if (numb=='2') query.prepare("UPDATE user SET stat2=stat2-1, stat=stat-1 WHERE log=:log;");
+            else query.prepare("UPDATE user SET stat3=stat3-1, stat=stat-1 WHERE log=:log;");
+            query.bindValue(":log", log);
+            query.exec();
+            db.close();
+            query.clear();
+            return "check_false";
+        }
     }
     QByteArray auth(QString log, QString pass,int desc) {
 
@@ -143,14 +145,15 @@ public:
         query.exec();
         if (query.next()){
             qDebug()<<log;
-            query.exec("update user set id_connection = '" +QString::number(desc)+"' where log = '"+log+"'" );
+            query.exec("update user set status = '" +QString::number(desc)+"' where log = '"+log+"'" );
+
             return "auth_true";
         }
         else{
             return "auth_false";
         }
     }
-    QByteArray reg(QString log, QString pass, QString mail)
+    QByteArray reg(QString log, QString pass, QString mail, QString role)
     {
         QSqlQuery query;
         query.prepare("SELECT * FROM user where log = :login" );
@@ -160,11 +163,12 @@ public:
             return "reg_false";
         }
         else{
-            qDebug()<<log;
-            query.prepare("INSERT INTO user (log, password, email, stat, status, stat1, stat2, stat3) VALUES (:login, :password, :email, 0, NULL, 0, 0, 0)");
+            qDebug()<<role;
+            query.prepare("INSERT INTO user (log, password, email, stat, status, stat1, stat2, stat3, role) VALUES (:login, :password, :email, 0, NULL, 0, 0, 0, :role)");
             query.bindValue(":login", log);
             query.bindValue(":password", pass);
             query.bindValue(":email", mail);
+            query.bindValue(":role", role);
             query.exec();
             return "reg_true";
         }
@@ -194,6 +198,34 @@ public:
         query.clear();
         return "true";
     }
+     QByteArray check_role(QString log){
+        QSqlQuery query;
+        query.prepare("SELECT role FROM user where log=:log");
+        query.bindValue(":log", log);
+        query.exec();
+        query.first();
+        QString value = query.value(0).toString();
+        qDebug() << value;
+        if(value=="1"){
+            return "role_teacher";
+        }else{
+            return "role_student";
+        }
+     }
+     QByteArray select_student(){
+         QSqlQuery query;
+         QString logs;
+         query.prepare("SELECT * FROM user where role='0'");
+         query.exec();
+         int fieldNo = query.record().indexOf("log");
+         while (query.next()) {
+             QString log = query.value(fieldNo).toString();
+             logs += log + "&";
+             qDebug()<<log;
+         }
+         return logs.toUtf8();
+     }
+
 };
 
 
