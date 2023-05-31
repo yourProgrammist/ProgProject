@@ -37,8 +37,8 @@ QString task1::generateTask(int n)
     case 1:
         return "Кодер Прюфера для деревьев.\nПо данному дереву T найти код C Прюфера.\n";
         break;
-    case 2:
-        return "Декодировать код Прюфера";
+    default:
+        return "task task task task task "+QString::number(n);
         break;
     }
 }
@@ -47,4 +47,3 @@ QString task1::generateVariant(int n)
     return "variant"+QString::number(n);
     close();
 }
-

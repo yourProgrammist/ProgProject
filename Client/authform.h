@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <qDebug>
 #include "functionsforclient.h"
 #include "client.h"
 
@@ -26,6 +27,7 @@ private slots:
     void on_but_exit_clicked();
 
     void check_auth();
+
 
 private:
     Ui::AuthForm *ui;

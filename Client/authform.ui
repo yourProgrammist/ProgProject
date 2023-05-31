@@ -66,6 +66,13 @@
      </layout>
     </item>
     <item>
+     <widget class="QRadioButton" name="radioButton_teacher">
+      <property name="text">
+       <string>Я учитель</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <layout class="QHBoxLayout" name="but_horizontalLayout">
       <item>
        <widget class="QPushButton" name="but_sign_in">

@@ -16,6 +16,7 @@ void AuthForm::change_mode(bool mode){//mode == true if registration
     ui->mail_lineEdit->setVisible(mode);
     ui->but_exit->setVisible(mode);
     ui->but_sign_in->setVisible(!mode);
+    ui->radioButton_teacher->setVisible(mode);
 }
 AuthForm::~AuthForm()
 {
@@ -76,6 +77,7 @@ void  AuthForm::check_auth()
 {
     QString log = ui -> log_lineEdit -> text();
     QString pass = ui -> pass_lineEdit -> text();
+    bool role = ui -> radioButton_teacher->isChecked();
     //login=log;
     bool g = true;
     if (ui -> mail_lineEdit -> isVisible())
@@ -85,7 +87,7 @@ void  AuthForm::check_auth()
 
             //reg
             QString email = ui -> mail_lineEdit -> text();
-                if (!((email=="") || (reg(log, pass, email)=="false")))
+                if (!((email=="") || (reg(log, pass, email, role)=="false")))
                 {
                     //reg(log, pass, email);
                     qDebug()<<"reg(log, pass, email)";
@@ -136,7 +138,17 @@ void  AuthForm::check_auth()
 
     if (g==true)
     {
-        emit onClosed(ui->log_lineEdit->text());
-        hide();
+        if(check_role(log)=="student"){
+            emit onClosed(ui->log_lineEdit->text());
+            hide();
+        }else if(check_role(log)=="teacher"){
+            QMessageBox temp;
+            temp.setText("Вы учитель");
+            temp.exec();
+        }
+
     }
 }
+
+
+

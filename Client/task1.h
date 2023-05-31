@@ -3,6 +3,7 @@
 
 
 #include <QWidget>
+#include <qDebug>
 #include "functionsforclient.h"
 #include "ui_mainwindow.h"
 

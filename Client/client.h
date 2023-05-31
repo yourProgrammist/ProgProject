@@ -45,6 +45,7 @@ signals:
         void reg_msg(QString msg);
         void stat_msg(QString msg);
         void check_msg(QString msg);
+        void check_role(QString msg);
 
     public:
         static Client* getInstance(){
@@ -98,6 +99,9 @@ signals:
         else if(res.left(5)=="check"){
             emit check_msg(res.mid(6,-1));
             ans_from_serv = res.mid(6,-1);
+        }else if(res.left(4)=="role"){
+            emit stat_msg(res.mid(5,-1));
+            ans_from_serv = res.mid(5,-1);
         }
     };
 

@@ -1,14 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "client.h"
+#include "qDebug"
 #include "ui_task1.h"
-#include "ui_task2.h"
+
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
     ui_auth = new AuthForm;
     ui_task1 = new task1;
-    ui_task2 = new task2;
     QObject::connect(ui_auth, &AuthForm::onClosed, this, &MainWindow::slot_show);
     ui_auth->show();
 }
@@ -57,10 +57,7 @@ void MainWindow::on_but_task1_clicked()
 
 void MainWindow::on_but_task2_clicked()
 {
-    ui_task2->setTaskNumber(2, ui->name_label->text());
-    ui_task2->generate_variant();
-
-
+    ui_task1->setTaskNumber(2, ui->name_label->text());
 }
 
 void MainWindow::on_but_task3_clicked()
@@ -76,6 +73,11 @@ void MainWindow::slot_show(QString log){
     this->show();
     ui->name_label->setText(log);
 }
+
+
+
+
+
 
 void MainWindow::on_stat_button_clicked()
 {

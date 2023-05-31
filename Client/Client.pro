@@ -14,30 +14,22 @@ SOURCES += \
     functionsforclient.cpp \
     main.cpp \
     mainwindow.cpp \
-    node.cpp \
-    task1.cpp \
-    task2.cpp \
-    tree.cpp
+    task1.cpp
 
 
 
 HEADERS += \
-    Random.hpp \
     authform.h \
     client.h \
     functionsforclient.h \
     mainwindow.h \
-    node.h \
-    task1.h \
-    task2.h \
-    tree.h
+    task1.h
 
 
 FORMS += \
     authform.ui \
     mainwindow.ui \
-    task1.ui \
-    task2.ui
+    task1.ui
 
 
 

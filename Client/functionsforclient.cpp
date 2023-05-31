@@ -9,9 +9,15 @@ QString auth(QString log, QString pass)
     //qDebug()<<Client::send_to_server(res);
     return Client::getInstance()->send_to_server(res);
 }
-QString reg(QString log, QString pass, QString email)
+QString reg(QString log, QString pass, QString email, bool role)
 {
-    QString res ="reg&"+log+"&"+pass+"&"+email;
+    QString res;
+    if(role==true){
+        res ="reg&"+log+"&"+pass+"&"+email+"&"+"1";
+    }else{
+        res ="reg&"+log+"&"+pass+"&"+email+"&"+"0";
+    }
+
     //qDebug()<<res;
     return Client::getInstance()->send_to_server(res);
 }
@@ -58,4 +64,7 @@ void update_stat(int n, QString upd)
     qDebug()<<res;
     Client::getInstance()->send_to_server(res);
 }
-
+QString check_role(QString log){
+    QString res = "role&"+log;
+    return Client::getInstance()->send_to_server(res);
+}
