@@ -1,0 +1,12 @@
+debug/tst_test.o
+debug/authform.o
+debug/client.o
+debug/functionsforclient.o
+debug/main.o
+debug/mainwindow.o
+debug/task2.o
+debug/moc_authform.o
+debug/moc_client.o
+debug/moc_mainwindow.o
+debug/moc_task1.o
+debug/moc_task2.o

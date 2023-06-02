@@ -1,0 +1,12 @@
+release/tst_test.o
+release/authform.o
+release/client.o
+release/functionsforclient.o
+release/main.o
+release/mainwindow.o
+release/task2.o
+release/moc_authform.o
+release/moc_client.o
+release/moc_mainwindow.o
+release/moc_task1.o
+release/moc_task2.o
