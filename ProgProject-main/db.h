@@ -33,7 +33,7 @@ protected:
     Db()
     {
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("C:\\1111\\ProgProject-main\\ProgProject-main\\DataBase.db");
+        db.setDatabaseName("/home/kirillosin/Desktop/ProgProject-Task-Nurov-Osin/ProgProject-main/DataBase.db");
 
 
         if(!db.open())
@@ -129,7 +129,7 @@ public:
                 query.bindValue(":log", log);
                 query.exec();
                 query.clear();
-                return "check_true";
+                return "check_false";
             }
         }else if(numb == "1"){
             if (ans=="true")
