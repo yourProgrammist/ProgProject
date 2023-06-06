@@ -33,7 +33,7 @@ protected:
     Db()
     {
         db = QSqlDatabase::addDatabase("QSQLITE");
-        db.setDatabaseName("C:\\1111\\exam 2\\exam\\DB.db");
+        db.setDatabaseName("/home/kirillosin/Desktop/exam/DB.db");
 
 
         if(!db.open())
