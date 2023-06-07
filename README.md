@@ -1,3 +1,4 @@
-docker build 
+для создание образа докера: "docker build -t <название образа> ."
 
-docker run "Countainer name" -p 33333:33333
+
+для запуска: "docker run -p 33333:33333 <название образа>"

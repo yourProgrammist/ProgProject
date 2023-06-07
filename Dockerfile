@@ -1,23 +1,20 @@
-FROM ubuntu:latest
+FROM ubuntu
 
 ENV TZ=Europe/Moscow
-
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update
 RUN apt-get install qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools -y
 RUN apt-get install build-essential -y
 
-EXPOSE 33333
-
-WORKDIR /root/
+WORKDIR /beluchenko_221-352/
 RUN mkdir server
-WORKDIR /root/server
-COPY *.cpp /root/server
-COPY *.h /root/server
-COPY *.pro /root/server
+WORKDIR /beluchenko_221-352/server/
+COPY *.cpp /beluchenko_221-352/server/
+COPY *.h /beluchenko_221-352/server/
+COPY *.pro /beluchenko_221-352/server/
 
-RUN qmake echoServer1.pro
-RUN make 
+RUN qmake echoServer_ex.pro
+RUN make
 
-ENTRYPOINT [ "./echoServer1" ]
+ENTRYPOINT ["./DipoPY"] 
